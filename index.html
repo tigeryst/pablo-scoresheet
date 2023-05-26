@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pablo Scoresheet</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+        text-align: center;
+      }
+      input[type="number"] {
+        width: 50px;
+      }
+
+      .reset {
+        background-color: lightgray;
+        font-weight: bold;
+      }
+
+      .game-over {
+        background-color: lightcoral;
+        font-weight: bold;
+      }
+
+      p {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pablo Scoresheet</h1>
+
+    <div>
+      <label for="playerCount">Number of Players:</label>
+      <select id="playerCount">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+      <button id="createScoresheetButton" onclick="createScoresheet()">
+        Create Scoresheet
+      </button>
+    </div>
+
+    <script>
+      var scoresheet;
+      var createScoresheetButton = document.getElementById(
+        "createScoresheetButton"
+      );
+      var resetButton;
+      var rankingsTable;
+      var playerCount;
+      var playerNames = [];
+
+      function createScoresheet() {
+        var playerCountSelect = document.getElementById("playerCount");
+        playerCount = parseInt(playerCountSelect.value);
+
+        if (scoresheet) {
+          scoresheet.remove();
+        }
+
+        if (rankingsTable) {
+          rankingsTable.remove();
+        }
+
+        scoresheet = document.createElement("table");
+        scoresheet.id = "scoresheet";
+
+        var headerRow = scoresheet.insertRow();
+        var nameCells = [];
+
+        var playerNameHeader = headerRow.insertCell();
+        playerNameHeader.textContent = "Player";
+
+        for (var i = 1; i <= playerCount; i++) {
+          var playerCell = headerRow.insertCell();
+          var nameInput = document.createElement("input");
+          nameInput.type = "text";
+          nameInput.placeholder = "Player " + i;
+          // console.log(playerNames);
+          if (playerNames.length >= i && playerNames[i - 1].trim() !== "") {
+            nameInput.value = playerNames[i - 1];
+          }
+
+          playerCell.appendChild(nameInput);
+          nameCells.push(nameInput);
+        }
+
+        var currentScoreRow = scoresheet.insertRow();
+        currentScoreRow.appendChild(document.createElement("td"));
+        for (var i = 1; i <= playerCount; i++) {
+          var currentScoreCell = currentScoreRow.appendChild(
+            document.createElement("td")
+          );
+          currentScoreCell.textContent = "0";
+          currentScoreCell.classList.add("current-score");
+        }
+
+        document.body.appendChild(scoresheet);
+
+        for (var i = 0; i < nameCells.length; i++) {
+          nameCells[i].addEventListener(
+            "blur",
+            updatePlayerName.bind(null, i + 1)
+          );
+        }
+
+        createRound(scoresheet, playerCount, 1);
+
+        createScoresheetButton.disabled = true;
+
+        if (!resetButton) {
+          resetButton = document.createElement("button");
+          resetButton.textContent = "Reset";
+          resetButton.classList.add("reset");
+          resetButton.addEventListener("click", resetScoresheet);
+          document.body.appendChild(resetButton);
+        }
+
+        resetButton.style.display = "block"; // Show the reset button
+
+        if (rankingsTable) {
+          rankingsTable.remove();
+        }
+      }
+
+      function resetScoresheet(resetNames = true) {
+        if (scoresheet) {
+          scoresheet.remove();
+        }
+
+        if (resetButton) {
+          resetButton.style.display = "none"; // Hide the reset button after resetting
+        }
+
+        if (rankingsTable) {
+          rankingsTable.remove();
+        }
+
+        if (resetNames) {
+          playerNames = []; // Reset player names array
+        }
+
+        createScoresheetButton.disabled = false;
+      }
+
+      function updatePlayerName(playerIndex) {
+        var playerName = this.value;
+        console.log(playerIndex);
+        console.log(playerName);
+        var headerRow = document.getElementById("scoresheet").rows[0];
+        var playerCell = headerRow.cells[playerIndex];
+
+        if (playerName.trim() !== "") {
+          playerCell.textContent = playerName;
+        } else {
+          playerCell.textContent = "Player " + playerIndex;
+        }
+
+        playerNames[playerIndex - 1] = playerName;
+      }
+
+      function createRound(scoresheet, playerCount, roundNumber) {
+        var roundRow = scoresheet.insertRow();
+        var roundCell = roundRow.appendChild(document.createElement("td"));
+        roundCell.textContent = "Round " + roundNumber;
+
+        for (var i = 1; i <= playerCount; i++) {
+          var playerCell = roundRow.appendChild(document.createElement("td"));
+          var scoreInput = document.createElement("input");
+          scoreInput.type = "number";
+          scoreInput.min = "-4";
+          scoreInput.max = "326";
+          scoreInput.addEventListener("blur", recalculateCurrentScore);
+          playerCell.appendChild(scoreInput);
+        }
+
+        if (roundNumber > 1) {
+          var previousRoundRow = scoresheet.rows[roundNumber - 1];
+          var previousRoundInputs = previousRoundRow.querySelectorAll("input");
+
+          for (var i = 0; i < previousRoundInputs.length; i++) {
+            if (previousRoundInputs[i].value === "") {
+              return;
+            }
+          }
+        }
+
+        var currentRoundInputs = roundRow.querySelectorAll("input");
+
+        for (var i = 0; i < currentRoundInputs.length; i++) {
+          currentRoundInputs[i].addEventListener("blur", checkRoundCompletion);
+        }
+      }
+
+      function checkRoundCompletion() {
+        var scoresheet = document.getElementById("scoresheet");
+        var currentRound = scoresheet.rows.length - 1;
+        var currentRoundInputs =
+          scoresheet.rows[currentRound].querySelectorAll("input");
+
+        for (var i = 0; i < currentRoundInputs.length; i++) {
+          if (currentRoundInputs[i].value === "") {
+            return;
+          }
+        }
+
+        createRound(scoresheet, currentRoundInputs.length, currentRound);
+
+        // Check if all scores for the final round have been logged
+        var isFinalRoundComplete = true;
+        var finalRoundIndex = currentRound - 1;
+        var finalRoundRow = scoresheet.rows[finalRoundIndex];
+        var finalRoundInputs = finalRoundRow.querySelectorAll("input");
+
+        for (var i = 0; i < finalRoundInputs.length; i++) {
+          if (finalRoundInputs[i].value === "") {
+            isFinalRoundComplete = false;
+            break;
+          }
+        }
+
+        if (isFinalRoundComplete) {
+          recalculateRanking(scoresheet);
+        }
+      }
+
+      function recalculateCurrentScore() {
+        var scoresheet = document.getElementById("scoresheet");
+        var playerCount = scoresheet.rows[0].cells.length - 1;
+        var currentScoreRow = scoresheet.rows[1];
+        var previousRoundRows = Array.from(scoresheet.rows).slice(2);
+        var isGameOver = false;
+        var isAllScoresLogged = true;
+
+        for (var i = 1; i <= playerCount; i++) {
+          var currentScoreCell = currentScoreRow.cells[i];
+          var playerTotal = 0;
+
+          previousRoundRows.forEach(function (row) {
+            var playerCell = row.cells[i];
+            var scoreInput = playerCell.querySelector("input");
+            var score = parseInt(scoreInput.value) || 0;
+
+            // Check if the score is within the desired range
+            if (score < -4 || score > 326) {
+              score = 0; // Set the score to 0 if it's outside the range
+              scoreInput.value = ""; // Clear the input value
+            }
+
+            playerTotal += score;
+
+            if (playerTotal === 50) {
+              playerTotal = 0;
+            } else if (playerTotal > 50) {
+              isGameOver = true;
+            }
+
+            if (scoreInput.value === "") {
+              isAllScoresLogged = false;
+            }
+          });
+
+          currentScoreCell.textContent = playerTotal;
+        }
+
+        if (isGameOver && isAllScoresLogged) {
+          currentScoreRow.classList.add("game-over");
+          displayRankings(scoresheet);
+        } else {
+          currentScoreRow.classList.remove("game-over");
+        }
+      }
+
+      function displayRankings(scoresheet) {
+        var playerCount = scoresheet.rows[0].cells.length - 1;
+        var rankings = [];
+
+        // Collect player names and final scores
+        for (var i = 1; i <= playerCount; i++) {
+          var playerName =
+            scoresheet.rows[0].cells[i].querySelector("input").value;
+          playerNames.push(playerName);
+          if (playerName === "") {
+            playerName = "Player " + i;
+          }
+          var playerScore =
+            parseInt(scoresheet.rows[1].cells[i].textContent) || 0;
+          rankings.push({ name: playerName, score: playerScore });
+        }
+
+        // Sort players based on scores in ascending order
+        rankings.sort(function (a, b) {
+          return a.score - b.score;
+        });
+
+        // Clear the scoresheet table
+        while (scoresheet.rows.length > 0) {
+          scoresheet.deleteRow(0);
+        }
+
+        // Create new table for displaying rankings
+        rankingsTable = document.createElement("table");
+        rankingsTable.id = "rankings-table";
+
+        // Add headers
+        var headerRow = rankingsTable.insertRow();
+        var rankHeader = headerRow.appendChild(document.createElement("th"));
+        rankHeader.textContent = "Rank";
+        var playerHeader = headerRow.appendChild(document.createElement("th"));
+        playerHeader.textContent = "Player";
+        var scoreHeader = headerRow.appendChild(document.createElement("th"));
+        scoreHeader.textContent = "Score";
+
+        // Add ranking rows
+        for (var i = 0; i < rankings.length; i++) {
+          var rankRow = rankingsTable.insertRow();
+          var rankCell = rankRow.insertCell();
+          rankCell.textContent = i + 1;
+          var playerCell = rankRow.insertCell();
+          playerCell.textContent = rankings[i].name;
+          var scoreCell = rankRow.insertCell();
+          scoreCell.textContent = rankings[i].score;
+        }
+
+        // Add the rankings table to the document
+        document.body.appendChild(rankingsTable);
+
+        // Display the "Play Again" button
+        var playAgainButton = document.createElement("button");
+        playAgainButton.textContent = "Play Again";
+        playAgainButton.id = "play-again-button";
+        playAgainButton.addEventListener("click", playAgain);
+        document.body.appendChild(playAgainButton);
+      }
+
+      function playAgain() {
+        console.log(playerNames);
+        resetScoresheet(false);
+        console.log(playerNames);
+        createScoresheet();
+
+        // Remove the "Play Again" button
+        var playAgainButton = document.getElementById("play-again-button");
+        playAgainButton.remove();
+      }
+    </script>
+  </body>
+</html>
