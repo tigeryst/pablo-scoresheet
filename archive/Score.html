@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pablo Score Sheet</title>
+
+<link rel="apple-touch-icon" sizes="57x57" href="/Pablo/Favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/Pablo/Favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/Pablo/Favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/Pablo/Favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/Pablo/Favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/Pablo/Favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/Pablo/Favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/Pablo/Favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/Pablo/Favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/Pablo/Favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/Pablo/Favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/Pablo/Favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Pablo/Favicon/favicon-16x16.png">
+<link rel="manifest" href="/Pablo/Favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/Pablo/Favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+</head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<style>
+  .PlayerName {
+    border: none;
+    font-size: 23px;
+    font-weight: bold;
+    width: 100%;
+  }
+
+  .hide2 tr td:nth-child(n+4) {
+    display: none;
+  }
+
+  .hide3 tr td:nth-child(n+5) {
+    display: none;
+  }
+
+  .hide4 tr td:nth-child(n+6) {
+    display: none;
+  }
+
+  .hide5 tr td:nth-child(n+7) {
+    display: none;
+  }
+
+  .hide6 tr td:nth-child(n+8) {
+    display: none;
+  }
+
+  .hide7 tr td:nth-child(n+9) {
+    display: none;
+  }
+
+  .hide8 tr td:nth-child(n+10) {
+    display: none;
+  }
+
+  #piotrirving {
+    animation: bgColor 5s infinite linear;
+  }
+
+  @keyframes bgColor {
+    12.5% {
+      color: #FF0000;
+    }
+
+    25% {
+      color: #FFA500;
+    }
+
+    37.5% {
+      color: #FFFF00;
+    }
+
+    50% {
+      color: #7FFF00;
+    }
+
+    62.5% {
+      color: #00FFFF;
+    }
+
+    75% {
+      color: #0000FF;
+    }
+
+    87.5% {
+      color: #9932CC;
+    }
+
+    100% {
+      color: #FF1493;
+    }
+  }
+</style>
+
+
+<script>
+  function inv() {
+    var x = document.getElementById("noOfPlayers").value;
+    $('#tab').removeClass()
+    $('#tab').addClass('hide' + x)
+  }
+
+
+  //@piotrirving
+  function piotrirving(name, number) {
+    if (name.value === '@piotrirving') {
+      document.getElementById("PlayerName" + number).id = "piotrirving";
+    };
+  }
+
+
+
+
+  //input restrictions
+  function scoreCheck(input) {
+    input.value = Math.round(input.value);
+    if (input.value < -4) input.value = -4;
+    if (input.value > 326) input.value = 326;
+  }
+
+  const sum = (accumulator, currentValue) => accumulator + currentValue;
+  const maxRows = 50;
+
+  //Score Color
+
+  function scoreColors(playerScore) {
+    if (playerScore < (50 / 30) * 1) {
+      return '#00FF00'
+    } else if (playerScore < (50 / 30) * 2) {
+      return '#12FF00'
+    } else if (playerScore < (50 / 30) * 3) {
+      return '#24FF00'
+    } else if (playerScore < (50 / 30) * 4) {
+      return '#35FF00'
+    } else if (playerScore < (50 / 30) * 5) {
+      return '#47FF00'
+    } else if (playerScore < (50 / 30) * 6) {
+      return '#58FF00'
+    } else if (playerScore < (50 / 30) * 7) {
+      return '#6AFF00'
+    } else if (playerScore < (50 / 30) * 8) {
+      return '#7CFF00'
+    } else if (playerScore < (50 / 30) * 9) {
+      return '#8DFF00'
+    } else if (playerScore < (50 / 30) * 10) {
+      return '#9FFF00'
+    } else if (playerScore < (50 / 30) * 11) {
+      return '#B0FF00'
+    } else if (playerScore < (50 / 30) * 12) {
+      return '#C2FF00'
+    } else if (playerScore < (50 / 30) * 13) {
+      return '#D4FF00'
+    } else if (playerScore < (50 / 30) * 14) {
+      return '#E5FF00'
+    } else if (playerScore < (50 / 30) * 15) {
+      return '#F7FF00'
+    } else if (playerScore < (50 / 30) * 16) {
+      return '#FFF600'
+    } else if (playerScore < (50 / 30) * 17) {
+      return '#FFE400'
+    } else if (playerScore < (50 / 30) * 18) {
+      return '#FFD300'
+    } else if (playerScore < (50 / 30) * 19) {
+      return '#FFC100'
+    } else if (playerScore < (50 / 30) * 20) {
+      return '#FFAF00'
+    } else if (playerScore < (50 / 30) * 21) {
+      return '#FF9E00'
+    } else if (playerScore < (50 / 30) * 22) {
+      return '#FF8C00'
+    } else if (playerScore < (50 / 30) * 23) {
+      return '#FF7B00'
+    } else if (playerScore < (50 / 30) * 24) {
+      return '#FF6900'
+    } else if (playerScore < (50 / 30) * 25) {
+      return '#FF5700'
+    } else if (playerScore < (50 / 30) * 26) {
+      return '#FF4600'
+    } else if (playerScore < (50 / 30) * 27) {
+      return '#FF3400'
+    } else if (playerScore < (50 / 30) * 28) {
+      return '#FF2300'
+    } else if (playerScore < (50 / 30) * 29) {
+      return '#FF1100'
+    } else {
+      return '#FF0000'
+    }
+  };
+
+
+  //Player Score Calculator
+
+  function playerPoints(player) {
+    var playerScores = [];
+    for (i = 1; i < maxRows; i++) {
+      var score = "score" + player + i;
+      var scoreValue = parseFloat(document.getElementById(score).value);
+      if (isNaN(scoreValue)) {
+        playerScores.push(0)
+      } else {
+        playerScores.push(scoreValue);
+      }
+    }
+
+    var currentPlayerScores = playerScores;
+
+    for (z = 0; z < 1000; z++) {
+      var arrayCheck = [];
+      var arrayTotal = 0;
+      for (i = 0; i < currentPlayerScores.length; i++) {
+        arrayCheck.push(currentPlayerScores[i])
+        arrayTotal = arrayCheck.reduce(sum);
+        if (arrayTotal === 50) {
+          for (x = 0; x < arrayCheck.length; x++) {
+            currentPlayerScores.shift();
+          }
+          break;
+        }
+      }
+      arrayCheck = [];
+      arrayTotal = 0;
+    };
+    var currentPlayerScore = currentPlayerScores.reduce(sum);
+    document.getElementById("player" + player + "Total").innerHTML = currentPlayerScore;
+    document.getElementById("player" + player + "Away").innerHTML = 50 - currentPlayerScore;
+
+
+    var scoreColor = scoreColors(currentPlayerScore);
+
+
+    $('#player' + player + 'Total').css({
+      color: `${scoreColor}`
+    })
+
+  };
+</script>
+
+
+<body>
+
+  Number of Players:
+  <select id="noOfPlayers" onchange="inv()">
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8" selected>8</option>
+  </select>
+
+  <br>
+  <br>
+
+  <table id="tab">
+    <tbody>
+      <tr>
+        <td></td>
+        <td>
+          <input id="PlayerName1" class="PlayerName" type="text" placeholder="Player 1" onchange="piotrirving(this, 1);">
+        </td>
+        <td>
+          <input id="PlayerName2" class="PlayerName" type="text" placeholder="Player 2" onchange="piotrirving(this, 2);">
+        </td>
+        <td>
+          <input id="PlayerName3" class="PlayerName" type="text" placeholder="Player 3" onchange="piotrirving(this, 3);">
+        </td>
+        <td>
+          <input id="PlayerName4" class="PlayerName" type="text" placeholder="Player 4" onchange="piotrirving(this, 4);">
+        </td>
+        <td>
+          <input id="PlayerName5" class="PlayerName" type="text" placeholder="Player 5" onchange="piotrirving(this, 5);">
+        </td>
+        <td>
+          <input id="PlayerName6" class="PlayerName" type="text" placeholder="Player 6" onchange="piotrirving(this, 6);">
+        </td>
+        <td>
+          <input id="PlayerName7" class="PlayerName" type="text" placeholder="Player 7" onchange="piotrirving(this, 7);">
+        </td>
+        <td>
+          <input id="PlayerName8" class="PlayerName" type="text" placeholder="Player 8" onchange="piotrirving(this, 8);">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Current Score: </p>
+        </td>
+        <td>
+          <p id="player1Total"></p>
+        </td>
+        <td>
+          <p id="player2Total"></p>
+        </td>
+        <td>
+          <p id="player3Total"></p>
+        </td>
+        <td>
+          <p id="player4Total"></p>
+        </td>
+        <td>
+          <p id="player5Total"></p>
+        </td>
+        <td>
+          <p id="player6Total"></p>
+        </td>
+        <td>
+          <p id="player7Total"></p>
+        </td>
+        <td>
+          <p id="player8Total"></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Points till 50: </p>
+        </td>
+        <td>
+          <p id="player1Away"></p>
+        </td>
+        <td>
+          <p id="player2Away"></p>
+        </td>
+        <td>
+          <p id="player3Away"></p>
+        </td>
+        <td>
+          <p id="player4Away"></p>
+        </td>
+        <td>
+          <p id="player5Away"></p>
+        </td>
+        <td>
+          <p id="player6Away"></p>
+        </td>
+        <td>
+          <p id="player7Away"></p>
+        </td>
+        <td>
+          <p id="player8Away"></p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score11" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score21" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score31" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score41" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score51" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score61" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score71" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score81" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score12" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score22" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score32" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score42" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score52" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score62" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score72" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score82" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score13" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score23" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score33" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score43" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score53" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score63" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score73" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score83" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score14" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score24" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score34" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score44" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score54" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score64" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score74" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score84" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score15" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score25" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score35" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score45" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score55" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score65" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score75" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score85" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score16" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score26" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score36" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score46" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score56" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score66" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score76" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score86" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score17" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score27" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score37" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score47" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score57" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score67" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score77" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score87" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score18" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score28" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score38" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score48" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score58" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score68" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score78" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score88" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score19" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score29" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score39" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score49" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score59" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score69" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score79" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score89" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score110" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score210" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score310" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score410" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score510" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score610" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score710" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score810" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score111" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score211" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score311" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score411" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score511" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score611" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score711" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score811" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score112" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score212" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score312" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score412" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score512" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score612" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score712" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score812" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score113" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score213" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score313" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score413" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score513" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score613" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score713" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score813" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score114" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score214" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score314" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score414" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score514" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score614" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score714" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score814" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score115" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score215" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score315" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score415" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score515" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score615" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score715" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score815" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score116" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score216" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score316" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score416" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score516" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score616" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score716" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score816" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score117" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score217" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score317" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score417" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score517" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score617" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score717" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score817" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score118" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score218" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score318" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score418" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score518" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score618" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score718" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score818" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score119" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score219" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score319" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score419" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score519" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score619" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score719" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score819" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score120" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score220" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score320" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score420" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score520" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score620" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score720" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score820" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score121" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score221" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score321" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score421" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score521" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score621" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score721" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score821" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score122" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score222" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score322" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score422" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score522" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score622" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score722" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score822" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score123" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score223" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score323" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score423" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score523" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score623" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score723" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score823" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score124" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score224" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score324" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score424" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score524" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score624" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score724" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score824" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score125" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score225" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score325" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score425" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score525" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score625" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score725" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score825" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score126" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score226" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score326" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score426" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score526" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score626" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score726" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score826" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score127" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score227" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score327" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score427" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score527" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score627" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score727" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score827" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score128" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score228" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score328" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score428" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score528" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score628" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score728" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score828" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="number" id="score129" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score229" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score329" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score429" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score529" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score629" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score729" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+        <td><input type="number" id="score829" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score130" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score230" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score330" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score430" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score530" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score630" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score730" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score830" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score131" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score231" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score331" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score431" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score531" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score631" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score731" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score831" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score132" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score232" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score332" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score432" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score532" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score632" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score732" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score832" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score133" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score233" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score333" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score433" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score533" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score633" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score733" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score833" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score134" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score234" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score334" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score434" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score534" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score634" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score734" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score834" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score135" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score235" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score335" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score435" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score535" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score635" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score735" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score835" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score136" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score236" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score336" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score436" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score536" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score636" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score736" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score836" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score137" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score237" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score337" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score437" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score537" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score637" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score737" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score837" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score138" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score238" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score338" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score438" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score538" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score638" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score738" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score838" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score139" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score239" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score339" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score439" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score539" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score639" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score739" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score839" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score140" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score240" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score340" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score440" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score540" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score640" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score740" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score840" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score141" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score241" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score341" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score441" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score541" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score641" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score741" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score841" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score142" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score242" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score342" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score442" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score542" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score642" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score742" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score842" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score143" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score243" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score343" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score443" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score543" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score643" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score743" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score843" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score144" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score244" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score344" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score444" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score544" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score644" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score744" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score844" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score145" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score245" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score345" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score445" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score545" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score645" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score745" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score845" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score146" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score246" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score346" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score446" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score546" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score646" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score746" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score846" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score147" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score247" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score347" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score447" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score547" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score647" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score747" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score847" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score148" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score248" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score348" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score448" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score548" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score648" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score748" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score848" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score149" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score249" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score349" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score449" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score549" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score649" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score749" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score849" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+      </tr>
+      <tr>
+      <td></td>
+      <td><input type="number" id="score150" onblur="playerPoints(1)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score250" onblur="playerPoints(2)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score350" onblur="playerPoints(3)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score450" onblur="playerPoints(4)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score550" onblur="playerPoints(5)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score650" onblur="playerPoints(6)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score750" onblur="playerPoints(7)" onchange="scoreCheck(this);"></td>
+      <td><input type="number" id="score850" onblur="playerPoints(8)" onchange="scoreCheck(this);"></td>
+    </tbody>
+  </table>
+</body>
+
+</html>

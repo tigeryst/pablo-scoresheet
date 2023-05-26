@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+
+    const sum = (accumulator, currentValue) => accumulator + currentValue;
+
+    function player1Points() {
+      var player1Score = [];
+      for (i = 1; i < 11; i++) {
+        var score = "score1" + i;
+        var scoreValue = parseFloat(document.getElementById(score).value);
+        if (isNaN(scoreValue)){player1Score.push(0)} else {
+          player1Score.push(scoreValue);
+        }
+      }
+
+   var currentPlayer1Score = player1Score;
+
+    for (z = 0; z < 1000; z++){
+          var arrayCheck = [];
+          var arrayTotal = 0;
+          for (i = 0; i < currentPlayer1Score.length; i++) {
+            arrayCheck.push(currentPlayer1Score[i])
+            arrayTotal = arrayCheck.reduce(sum);
+            if (arrayTotal === 50) {
+              for (x = 0; x < arrayCheck.length; x++) {
+                currentPlayer1Score.shift();
+              } break;
+            }
+          }
+          arrayCheck = [];
+          arrayTotal = 0;
+        };
+      document.getElementById("player1Total").innerHTML = currentPlayer1Score.reduce(sum);
+      document.getElementById("player1Away").innerHTML = 50 - currentPlayer1Score.reduce(sum);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+<body>
+
+
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td></td>
+        <td>
+          <h1>Player 1</h1>
+        </td>
+        <td>
+          <h1>Player 2</h1>
+        </td>
+        <td>
+          <h1>Player 3</h1>
+        </td>
+        <td>
+          <h1>Player 4</h1>
+        </td>
+        <td>
+          <h1>Player 5</h1>
+        </td>
+        <td>
+          <h1>Player 6</h1>
+        </td>
+        <td>
+          <h1>Player 7</h1>
+        </td>
+        <td>
+          <h1>Player 8</h1>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>Current Score: </p>
+        </td>
+        <td><p id="player1Total"></p></td>
+          <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+      </tr>
+      <tr>
+        <td><p>Points till 50: </p></td>
+        <td>
+          <p id="player1Away"></p>
+        </td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+        <td>nbsp</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score11" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score12" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score13" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score14" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score15" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score16" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score17" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score18" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score19" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>nbsp</td>
+        <td><input type="number" id="score110" onblur="player1Points()"></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
