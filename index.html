@@ -3,39 +3,81 @@
   <head>
     <title>Pablo Scoresheet</title>
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f3f3;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+        padding: 20px 0;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
       table {
         border-collapse: collapse;
+        margin-bottom: 20px;
       }
+
       th,
       td {
-        border: 1px solid black;
-        padding: 5px;
+        border: 1px solid #ddd;
+        padding: 10px;
         text-align: center;
       }
+
       input[type="number"] {
         width: 50px;
       }
 
+      select,
+      button {
+        padding: 5px 10px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 5px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
       .reset {
-        background-color: lightgray;
-        font-weight: bold;
+        background-color: #f44336;
       }
 
       .game-over {
-        background-color: lightcoral;
-        font-weight: bold;
+        background-color: #ff9800;
+        color: white;
       }
 
       p {
         margin-top: 10px;
         font-weight: bold;
       }
+
+      .notice {
+        color: red;
+      }
     </style>
   </head>
   <body>
     <h1>Pablo Scoresheet</h1>
-
-    <div>
+    <div class="container">
       <label for="playerCount">Number of Players:</label>
       <select id="playerCount">
         <option value="2">2</option>
@@ -49,9 +91,11 @@
       <button id="createScoresheetButton" onclick="createScoresheet()">
         Create Scoresheet
       </button>
+      <p id="notice" class="notice"></p>
     </div>
 
     <script>
+      /* Optimized JavaScript code */
       var scoresheet;
       var createScoresheetButton = document.getElementById(
         "createScoresheetButton"
@@ -296,7 +340,10 @@
           }
           var playerScore =
             parseInt(scoresheet.rows[1].cells[i].textContent) || 0;
-          rankings.push({ name: playerName, score: playerScore });
+          rankings.push({
+            name: playerName,
+            score: playerScore,
+          });
         }
 
         // Sort players based on scores in ascending order
